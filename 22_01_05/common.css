@@ -1,0 +1,15 @@
+* {margin: 0px; padding: 0px;}
+body {width: 960px;margin: 0px auto; background: gray;}
+#page{background: white; height: fit-content; padding-bottom: 50px;}
+h1, h5{text-align: center; padding-top: 50px; }
+table{margin: 0px auto; margin-top: 50px; border-collapse: collapse;}
+th, td{border: 1px solid black; padding: 10px;}
+#buttons{width: 600px; margin: 0px auto; text-align: center; padding: 10px;}
+button:hover{background: cornflowerblue;}
+.button , button{width: 80px; padding: 5px; background: green; color: white; border-radius: 10px; border: none;}
+input[type="text"],input[type="password"] {padding: 5px;border:1px solid gray;}
+#menu{border-top:2px dotted black; border-bottom:2px dotted black; padding: 5px; text-align: center; background-color: lightgrey;}
+#list .row button:hover{background-color: cornflowerblue;}
+a{text-decoration: none;}
+#posts {color: black;}
+button:disabled{background-color: gray;}

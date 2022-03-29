@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./common.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #posts, #info {
+            margin: 30px;
+            padding: 20px;
+        }
+        h3 {
+            border-bottom: 1px dotted gray;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <title>게시글목록</title>
+</head>
+<body>
+    <div id="page">
+        <div id="top">
+            <h1>게시글목록</h1>
+        </div>
+        <div id="center">
+            <div id="posts"></div>
+            <div id="info">
+                <h1>게시글정보</h1>
+                <h3 id="title"></h3>
+                <p id="body"></p>
+            </div>
+            <div id="comments"></div>
+        </div>
+        <div id="bottom">
+            <h5>CopyRight 2022. 인천일보아카데미 Reserve All Right.</h5>
+        </div>
+    </div>
+</body>
+<script>
+    //posts안에 h3를 눌렀을때
+    $("#posts").on("click","h3", function(){
+        let postid=$(this).find(".id").html();
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "https://jsonplaceholder.typicode.com/posts/" + postid,
+            success:function(data){
+                let title=data.title;
+                let body=data.body
+                $("#title").html(title);
+                $("#body").html(body);
+
+                $.ajax({
+                type: "get",
+                dataType: "json",
+                url: "https://jsonplaceholder.typicode.com/comments?postId="+postid ,
+                success:function(data){
+                    let str="";
+                    $(data).each(function(){
+                        let id=this.id;
+                        let email=this.email;
+                        let body=this.body;
+                        str+="<h4>" + id + ":" + email + "</h4>";
+                        str+="<p>" + body + "</p>";
+                    });
+                    $("#comments").html(str);
+                }
+            });
+            }
+        });
+    });
+    getList();
+
+    function getList(){
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "https://jsonplaceholder.typicode.com/posts",
+            success:function(data){
+                let str="";
+                $(data).each(function(){
+                    let title=this.title;
+                    let id=this.id;
+                    if(id<=5){
+                        str+="<h3> [";
+                        str+="<span class='id'>"+id+"</span>]";
+                        str+="<span class='title'>"+title+"</span>";
+                        str+="</h3>";
+                    }
+                });
+                $("#posts").html(str);
+            }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex10</title>
+    <style>
+         * {margin: 0px; padding: 0px;
+        }
+
+        body {
+            background: rgb(17, 17, 22);
+        }
+
+        #head {
+            text-align: center;
+            color: lightgrey;
+        }
+        
+        #main {
+            box-shadow: 5px 5px 5px 5px;
+            margin:5px;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        header{
+            height: 20px;
+            width: auto;
+            background: rgb(49, 48, 53);
+            text-align: center;
+            color: white;
+            padding: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.151);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.151);
+        }
+
+        header span{
+            margin: 30px;
+            font-weight: bold;
+        }
+
+        section { 
+            height: auto;
+            width:auto;
+            overflow: hidden;
+            padding: 10px 0px 0px 0px;
+            
+        }
+        
+        section #top {
+            padding-bottom: 5px;
+            text-align: center;
+        }
+
+        section #bottom {
+            height: 1200px;
+            overflow: hidden;
+            margin: 10px auto;
+        }
+
+
+        #left{
+            height: fit-content;
+            width: 200px;
+            margin-left: 380px;
+            position: relative;
+            float: left;
+        }
+
+        #center {
+            height: fit-content;
+            width: 600px;
+            position: relative;
+            float: left;
+            margin-left: 5%;
+            margin-right: -70px;
+        }
+
+        #right{
+            height: fit-content;
+            width: 200px;
+            position: relative;
+            float: left;
+        }
+
+        #left .box {
+            height: fit-content;
+            width: 250px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.151);
+            background: black;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        #center .box {
+            height: fit-content;
+            width: 500px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.151);
+            background: black;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #right .box {
+            height: fit-content;
+            width: 250px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.151);
+            background: black;
+            border-radius: 5px;  
+            margin-bottom: 20px;
+            color: white;     
+        }
+
+        .box p{
+            font-size: 15px;
+        }
+
+
+        .title{
+            background: rgba(255, 255, 255, 0.151);
+            color: white;
+            padding: 10px;
+        }
+
+        footer{
+            height: 100px;
+            width: auto;
+            text-align: center;
+        }
+
+        hr {
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <!-- 헤드 -->
+     <h1 id="head">LostArk</h1>
+    <header>
+        <span>홈</span>
+        <span>로아샵</span>
+        <span>길드</span>
+        <span>순위</span>
+        <span>통계</span>
+        <span>도서관</span>
+        <span>도구</span>
+    </header>
+    <!-- 본문 -->
+    <section>
+        <div id="top">
+            <img src="./png/banner1.png">
+        </div>
+        <div id="bottom">
+            <!-- 왼쪽내용 -->
+            <div id="left">
+                <div class="box">
+                    <h4 class="title">공지사항</h4>
+                    <p>이거 만들려고 진땀뺐네<br/>여러분 로스트아크 하세요</p>
+                </div>
+
+                <div class="box">
+                    <h4 class="title">로스트아크 쿠폰코드</h4>
+                    <img src="./png/7.png" alt="">
+                </div>
+
+                <div class="box">
+                    <h4 class="title">디스코드</h4>
+                    <img src="./png/8.png" alt="">
+                </div>
+            </div>
+            <!-- 중간내용 -->
+            <div id="center">
+                <div class="box">
+                    <h4 class="title">진행중인 로스트아크 이벤트</h4>
+                    <img src="./png/1.png" alt="">
+                    <img src="./png/2.png" alt="">
+                    <img src="./png/3.png" alt="">
+                    <img src="./png/4.png" alt="">
+                    <img src="./png/5.png" alt="">
+                    <img src="./png/6.png" alt="">
+                </div>
+
+                <div class="box">
+                    <h4 class="title">오늘의 모험섬</h4>
+                    <img src="./png/today.png" alt="">
+                </div>
+            </div>
+            <!-- 오른쪽내용 -->
+            <div id="right">
+               <div class="box">
+                    <h4 class="title">실시간 랭킹</h4>
+                    <h6 style="color: grey;">2022.01.04 기준</h6>
+                    <p>1. 홍길동  <span style="color:cornflowerblue;">+1615</span></p>
+                    <p>2. 이몽룡  <span style="color:cornflowerblue;">+1610</span></p>
+                    <p>3. 강감찬  <span style="color:cornflowerblue;">+1590</span></p>
+                    <p>4. 이순신  <span style="color:cornflowerblue;">+1580</span></p>
+                    <p>5. 이춘향  <span style="color:cornflowerblue;">+1540</span></p>
+                    <p>7. 례예몌  <span style="color:cornflowerblue;">+1500</span></p>
+                    <p>8. 례혜몌  <span style="color:cornflowerblue;">+1460</span></p>
+                </div>
+
+                <div class="box">
+                    <h4 class="title">후원문의</h4>
+                    <img src="./png/incheon.png" alt="">
+                    <p>인천일보아카데미</p>
+                    <p>연락처 : 032-876-3332</p>
+                </div>
+
+                <div class="box">
+                    <h4 class="title">로스트아크 서버정보</h4>
+                    <img src="./png/9.png" alt="">
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- 푸터 -->
+    <footer>
+        <img src="./png/footer.png" alt="">
+    </footer>
+    </div>
+</body>
+</html>

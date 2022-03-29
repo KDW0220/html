@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./common.css">
+    <title>앨범목록</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    <style>
+        #center{background: khaki; padding: 20px;}
+        #page {text-align: center; padding: 10px;}
+        h3, h4 {padding: 10px; }
+        #albums h4{border-bottom: 1px dotted darkred; cursor: pointer;}
+
+        #photo{
+            overflow: hidden;
+            margin: 30px;
+        }
+
+        #photo .box{
+            float: left;
+            width: 200px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="page">
+        <div id="top"><h1>앨범목록</h1></div>
+
+        <div id="center">
+            <!-- 앨범목록 출력 -->
+            <h3>앨범목록</h3>
+            <div id="albums">
+            <script id="temp" type="text/x-handlebars-template">
+                {{#each.}}
+                <h4>
+                    [<span class="id">{{id}}</span>]
+                    <span class="title">{{title}}</span>
+                </h4>
+                {{/each}}
+            </script>
+            </div>
+
+            <!-- 사진목록 출력 -->
+            <h3>사진목록</h3>
+            <div id="photo">
+                <script id="temp1" type="text/x-handlebars-template">
+                    <div class="box">
+                        {{#each.}}
+                        <img src="{{thumbnailUrl}}">
+                        <h4>
+                            [<span class="id">{{id}}</span>]
+                            <span class="title">{{title}}</span>
+                        </h4>
+                        {{/each}}
+                    </div>
+                </script>
+            </div>
+
+            
+        </div>
+
+        <div id="bottom"><h5>CopyRight 2022. 인천일보아카데미 Reserve All Right.</h5></div>
+    </div>
+</body>
+<script>
+    getAlnums();
+
+    //앨범을 클릭했을경우
+    $("#albums").on("click","h4",function(){
+        let albumid=$(this).find(".id").html();
+        $.ajax({
+            type : "get",
+            dataType : "json",
+            url : "https://jsonplaceholder.typicode.com/photos?albumId="+albumid,
+            success: function(data){
+                let newData = [];
+                $(data).each(function(){
+                    let id=this.albumId;
+                    if(id==albumid)newData.push(this);
+                });
+                var template = Handlebars.compile($("#temp1").html());
+                $("#photo").html(template(newData));
+            }
+        });
+    });
+        
+        
+    //앨범출력함수
+     function getAlnums(){
+        $.ajax({
+            type : "get",
+            dataType : "json",
+            url : "https://jsonplaceholder.typicode.com/albums",
+            success: function(data){
+                let newData = [];
+                $(data).each(function(){
+                    let id=this.id;
+                    if(id<=5)newData.push(this);
+                });
+                var template = Handlebars.compile($("#temp").html());
+                $("#albums").html(template(newData));
+            }
+        });
+    }
+</script>
+</html>

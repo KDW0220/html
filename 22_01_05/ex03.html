@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>주소관리</title>
+    <link rel="stylesheet" href="common.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="page">
+        <div id="top">
+            <h1>주소관리</h1>
+        </div>
+        <div id="menu">
+            <span><a href="./ex01.html">상품관리</a></span>
+            <span> | </span>
+            <span><a href="./ex02.html">회원관리</a></span>
+            <span> | </span>
+            <span><a href="./ex03.html">주소관리</a></span>
+        </div>
+        <div id="center">
+            <form name="frm">
+                <table>
+                    <tr>
+                        <th width=100>성명</th>
+                        <td width=500><input type="text" name="name"></td>
+                    </tr>
+                    <tr>
+                        <th width=100>주소</th>
+                        <td width=500><input type="text" name="address"></td>
+                    </tr>   
+                    <tr>
+                        <th width=100>전화번호</th>
+                        <td width=500><input type="text" name="tel"></td>
+                    </tr>
+                </table>
+                <div id="buttons">
+                    <input type="submit" value="등록" class="button">
+                    <input type="reset" value="취소" class="button">
+                </div>
+
+                <div id="list" style="width: 600px; margin: 0px auto;"></div>
+            </form>
+        </div>
+       
+        <div id="bottom">
+            <h5>CopyRight 2022. 인천일보아카데미 Reserve All Right.</h5>
+        </div>
+    </div>
+</body>
+<script>
+    $(frm).on("submit",function(e){
+        e.preventDefault();
+        let name=$(frm.name).val();
+        let address=$(frm.address).val();
+        let tel=$(frm.tel).val();
+        if(name==""){
+            alert("이름을 입력하세요!");
+            $(frm.name).focus();
+        }else if(address==""){
+            alert("주소를 입력하세요");
+            $(frm.address).focus();
+        }else if(tel==""){
+            alert("전화번호를 입력하세요");
+            $(frm.tel).focus();
+        }
+        else{
+            if(!confirm("새로운 주소를 등록하시겠습니까?")) return;
+            let str="<tr class='row'>";
+                str+="<td width=100 class='name'>" +name +"</td>";
+                str+="<td width=200>" +tel +"</td>";
+                str+="<td width=400>" +address +"</td>";
+                str+="<td width=100><button>삭제</button></td>"
+                str+="</tr>"; 
+            $("#list").append(str);
+            $(frm.name).val();
+            $(frm.address).val();
+            $(frm.tel).val();  
+        }
+    });
+
+    $("#list").on("click",".row button",function(){
+        let row=$(this).parent().parent();
+        let name=row.find(".name").html();
+        if(!confirm(name+"을(를) 삭제?")) return;
+        row.remove();
+    });
+</script>
+</html>

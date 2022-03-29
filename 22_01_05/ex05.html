@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./common.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #todos{ margin-left: 100px; padding: 10px;}
+        tr:nth-child(2n){background-color: cornflowerblue;}
+        tr:hover{background-color: bisque;}
+    </style>
+    <title>할일목록</title>
+</head>
+<body>
+    <div id="page">
+        <div id="top">
+            <h1>할일목록</h1>
+        </div>
+        <div id="center">
+            <div id="todos"></div>
+            <div id="buttons">
+                <button id="prev">이전</button>
+                <span id="curpage">1</span>
+                <button id="next">다음</button>
+            </div>
+        </div>
+        <div id="bottom">
+            <h5>CopyRight 2022. 인천일보아카데미 Reserve All Right.</h5>
+        </div>
+    </div>
+</body>
+<script>
+    //목록을 불러오는 함수
+    getList();
+    let curpage=1;//현재페이지
+    let perPagenum=10;//한페이지 출력되는 갯수
+    let lastPage=Math.ceil(200/perPagenum);//마지막 페이지
+    $("#curpage").html(curpage+"/"+lastPage);
+
+    //다음버튼을 클릭한경우
+    $("#next").on("click",function(){
+        curpage++;
+        $("#curpage").html(curpage+"/"+lastPage);
+        getList();
+    });
+
+    //이전버튼을 클릭한경우
+    $("#prev").on("click",function(){
+        curpage--;
+        $("#curpage").html(curpage+"/"+lastPage);
+        getList();
+    });
+
+    function getList(){
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "https://jsonplaceholder.typicode.com/todos",
+            success:function(data){
+                let str="<tr><th width=50>완료</th><th width=600>할일</th></tr>";
+                $(data).each(function(){
+                    let title=this.title;
+                    let id=this.id;
+                    let completed=this.completed;
+                    let start = (curpage-1)*perPagenum +1; //시작ID
+                    let end= (curpage)*perPagenum; //종료ID
+
+                    if(id<=end&&id>=start){
+                        str+="<tr>";
+                        str+="<td><input type='checkbox'></td>";
+                        str+="<td>"+id+" : "+title+"</td>";
+                        str+="</tr>";
+                    }
+                });
+                $("#todos").html(str);
+                //1페이지인 경우 뒤로가기 불가능
+                if(curpage==1){
+                    $("#prev").attr("disabled", true);
+                }else{
+                    $("#prev").attr("disabled", false);
+                }
+
+                //마지막 페이지인 경우 다음버튼 불가능
+                if(curpage==lastPage){
+                    $("#next").attr("disabled", true);
+                }else{
+                    $("#next").attr("disabled", false);
+                }
+            }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./common.css">
+    <title>도서검색</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+    <style>
+        #books{overflow: hidden; width: 1000px; margin: 0px auto;}
+        .box{float: left; width: 200px; margin: 5px; padding: 5px; text-align: center; border: 1px solid gray; border-radius: 5px;}
+        .title, .price, .authors{overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 15px;}
+        #bookinfo{border-top: 1px solid black; border-bottom: 1px solid black; padding: 10px; margin: 10px;}
+        .price{color: blue;}
+    </style>
+</head>
+<body>
+    <div id="page">
+        <div id="top"><h1>도서검색</h1></div>
+        <div id="center">
+            <div id="bookinfo">
+                검색수 : <span id="total"></span>건
+            </div>
+            <!-- 도서검색한 결과목록 -->
+            <div id="books"></div>
+            <script id="temp" type="text/x-handlebars-template">
+                {{#each documents}}
+                <div class="box">
+                    <img src="{{thumbnail}}">
+                    <div class="title">{{title}}</div>
+                    <div class="price">{{price}}원</div>
+                    <div class="authors">{{authors}}</div>
+                </div>
+                {{/each}}
+            </script>
+            <div id="buttons">
+                <button id="prev">◀</button>
+                <span id="curpage">1</span>
+                <button id="next">▶</button>
+            </div>
+        </div>
+        <div id="bottom"><h5>CopyRight 2022. 인천일보아카데미 Reserve All Right.</h5></div>
+    </div>
+</body>
+<script>
+    let page=1;
+    getBooks();
+
+    $("#prev").on("click",function(){
+        page--;
+        getBooks();
+    });
+
+    $("#next").on("click",function(){
+        page++;
+        getBooks();
+    });
+
+    //앨범출력함수
+    function getBooks(){
+        $.ajax({
+            type : "get",
+            dataType : "json",
+            url : "https://dapi.kakao.com/v3/search/book?target=title",
+            headers : {"Authorization": "KakaoAK 04ce4bf8002de6c8466523c16b6de483"},
+            data: {"query" : "엄마를 부탁해", "size":10, "page" : page},
+            success: function(data){
+                var template = Handlebars.compile($("#temp").html());
+                $("#books").html(template(data));
+                $("#total").html(data.meta.pageable_count)
+                $("#curpage").html(page);
+
+                let is_end=data.meta.is_end;
+                if(page==1){
+                    $("#prev").attr("disabled",true);
+                }else{
+                    $("#prev").attr("disabled",false);
+                }
+
+                if(is_end){
+                    $("#next").attr("disabled",true);
+                }else{
+                    $("#next").attr("disabled",false);
+                }
+            }
+        });
+    }
+</script>
+</html>
